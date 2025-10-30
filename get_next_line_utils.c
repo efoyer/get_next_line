@@ -5,44 +5,34 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: efoyer <efoyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/27 14:06:17 by efoyer            #+#    #+#             */
-/*   Updated: 2025/10/28 13:16:05 by efoyer           ###   ########.fr       */
+/*   Created: 2025/10/29 10:33:18 by efoyer            #+#    #+#             */
+/*   Updated: 2025/10/30 10:46:56 by efoyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	*ft_calloc(size_t nmemb, size_t size)
-{
-	char	*ptr;
-	size_t	i;
-
-	if (size != 0 && nmemb > SIZE_MAX / size)
-		return (NULL);
-	ptr = malloc(nmemb * size);
-	if (!ptr)
-		return (NULL);
-	i = 0;
-	while (i < nmemb * size)
-	{
-		ptr[i] = 0;
-		i++;
-	}
-	return (ptr);
-}
-
-static int	ft_lenmax(const char *s1, const char *s2)
+size_t	ft_strlen(char *str)
 {
 	int	i;
-	int	j;
 
+	if (!str)
+		return (0);
 	i = 0;
-	j = 0;
-	while (s1[i])
+	while (str[i] != '\0')
 		i++;
-	while (s2[j])
-		j++;
-	return (i + j);
+	return (i);
+}
+
+char	*free_join(char *s1, char *s2)
+{
+	char	*t;
+
+	t = ft_strjoin(s1, s2);
+	if (!t)
+		return (free(s1), NULL);
+	free(s1);
+	return (t);
 }
 
 char	*ft_strjoin(char *s1, char *s2)
@@ -51,14 +41,17 @@ char	*ft_strjoin(char *s1, char *s2)
 	int		i;
 	int		j;
 
-	str_final = malloc(sizeof(char) * ft_lenmax(s1, s2) + 1);
+	str_final = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (!str_final)
 		return (NULL);
 	i = 0;
-	while (s1[i])
+	if (s1)
 	{
-		str_final[i] = s1[i];
-		i++;
+		while (s1[i])
+		{
+			str_final[i] = s1[i];
+			i++;
+		}
 	}
 	j = 0;
 	while (s2[j])
@@ -75,6 +68,8 @@ char	*ft_strchr(char *s, int c)
 	int		i;
 	char	cr;
 
+	if (!s)
+		return (NULL);
 	i = 0;
 	cr = (char)c;
 	while (s[i])
@@ -86,13 +81,4 @@ char	*ft_strchr(char *s, int c)
 	if (s[i] == cr)
 		return ((char *)&s[i]);
 	return (NULL);
-}
-
-char	*free_join(char *s1, char *s2)
-{
-	char	*tmp;
-
-	tmp = ft_strjoin(s1, s2);
-	free (s1);
-	return (tmp);
 }

@@ -6,7 +6,7 @@
 /*   By: efoyer <efoyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 14:06:11 by efoyer            #+#    #+#             */
-/*   Updated: 2025/10/28 13:16:30 by efoyer           ###   ########.fr       */
+/*   Updated: 2025/10/30 08:47:34 by efoyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,14 @@
 # endif
 
 # include <fcntl.h>
+# include <stdio.h>
 # include <unistd.h>
 # include <stdint.h>
 # include <stdlib.h>
 
 char	*get_next_line(int fd);
-void	*ft_calloc(size_t nmemb, size_t size);
+size_t	ft_strlen(char *str);
+char	*free_join(char *s1, char *s2);
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_strchr(char *s, int c);
-char	*free_join(char *s1, char *s2);
 #endif
